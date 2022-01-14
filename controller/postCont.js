@@ -16,6 +16,9 @@ const createPost = async (req, res) => {
 }
 
 const getPost = async (req, res) => {
+    const image = req.files[0].path;
+    console.log(req.files);
+    console.log(image);
     try{
         const data = await postModel.getPost();
         res.status(200).json(data);
