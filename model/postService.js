@@ -1,36 +1,4 @@
-const config = require("./config");
-const mongoose = require("mongoose");
-const schema = mongoose.Schema({
-    title: {
-        type: String,
-        maxLength: 100,
-        require: true
-    },
-    content: {
-        type: String,
-        maxLength:2000,
-        require: false
-    },
-    section: {
-        type: String,
-        require: false,
-        default: ""
-    },
-    view:{
-        type: Number,
-        default:0
-    },
-    pubDate: {
-        type: Date,
-        default: Date.now
-    },
-    modData : {
-        type: Date,
-        default: Date.now
-    }
-})
-
-const post = mongoose.model("post",schema);
+const data = require('./Schema/postSchema');
 
 const createPost = (title, content, section) => {
     const data = new post({

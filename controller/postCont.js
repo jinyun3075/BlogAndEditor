@@ -1,4 +1,4 @@
-const postModel = require('../model/postSchema');
+const postModel = require('../model/postService');
 
 const createPost = async (req, res) => {
     const { title, content, section} =req.body;

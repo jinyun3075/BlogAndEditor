@@ -1,5 +1,6 @@
 const express = require('express');
 const postRouter = require("./routes/postRoute");
+const imgRouter = require('./routes/imgRoute');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -15,6 +16,7 @@ app.use(bodyparser.urlencoded({ extended : true}))
 app.use(cors());
 app.use(express.json())
 
+app.use('/img', imgRouter);
 app.use('/post/api', postRouter);
 
 app.use((req, res, next) => {
