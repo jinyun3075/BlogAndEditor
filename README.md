@@ -1,10 +1,11 @@
 # 블로그
 ## npm
-- mongoose
-- dotenv
-- express
-- body-parser
 - cors
+- express
+- dotenv
+- mongoose
+- multer
+- body-parser
 ## 기능
 - 게시판 CRUD
 - 조회수

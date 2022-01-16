@@ -1,11 +1,11 @@
 const express = require('express');
+const dotenv = require('dotenv');
+const cors = require('cors');
+const bodyparser = require("body-parser");
+
 const postRouter = require("./routes/postRoute");
 const imgRouter = require('./routes/imgRoute');
-const dotenv = require('dotenv');
-const mongoose = require('mongoose');
-const cors = require('cors');
 const db = require('./model/config');
-const bodyparser = require("body-parser");
 
 dotenv.config();
 
@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 })
 
 app.use((err, req, res, next) => {
-    console.log('애러났음!')
+    console.log('서버 폭발!!')
     console.log(err);
     res.sendStatus(500);
 })

@@ -1,4 +1,4 @@
-const data = require('./Schema/postSchema');
+const post = require('./Schema/postSchema');
 
 const createPost = (title, content, section) => {
     const data = new post({
