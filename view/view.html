@@ -9,35 +9,39 @@
 </head>
 <body>
     <section id="view">
-        <p class="title">view</p>
-        <ul class="views">
-            <li>
-                <div class="view-img">
-                    <img src="./yunjae.jpg" alt="">
-                </div>
-                <textarea class="view-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic at vitae a facere, possimus quas quis sequi earum esse voluptatum harum, adipisci deserunt amet cumque illo laborum. Officia ut magnam earum voluptatem atque delectus maxime at, voluptatum rem voluptates incidunt adipisci perspiciatis laudantium? Non, a corporis! Vel et, corrupti veniam, aperiam qui a deleniti officia omnis, quasi dolorum eum illo illum eveniet. Quam ducimus, molestias reprehenderit ipsa fugiat unde repudiandae labore error enim mollitia provident veritatis aliquid saepe voluptate perspiciatis consectetur repellendus assumenda ut omnis voluptas fugit? Fuga vero vitae quidem facilis rerum quibusdam, est rem, earum quos expedita quasi perspiciatis quaerat excepturi laudantium corporis voluptatibus. Ratione minus atque earum, deserunt laudantium quisquam officiis ex nesciunt, distinctio architecto adipisci eos facere? Ab mollitia inventore quia reiciendis incidunt, earum amet, ad non dolore repellat saepe quo similique? Reiciendis soluta officia voluptas reprehenderit illum adipisci modi. Delectus, nobis? Dicta ratione necessitatibus dignissimos accusantium in deserunt ipsa aut, exercitationem facilis magni unde saepe quidem totam tempora labore asperiores nemo voluptatem non, eum commodi neque. Quis delectus laudantium similique cupiditate iste, a rerum voluptate accusamus quam, tempore culpa eius quos in animi accusantium molestias itaque debitis sed inventore. Tenetur facilis earum consequatur. Accusamus numquam neque voluptatibus sint nihil omnis debitis nostrum voluptatum, esse voluptatem recusandae eum non unde distinctio mollitia ex minima at odit possimus quas quibusdam praesentium. Facere dolorem dolor natus, quasi incidunt dolores ea similique excepturi voluptates magnam eum provident nulla, repellat eveniet dolorum iusto. Ab recusandae impedit unde, incidunt, expedita est quis natus blanditiis ullam dolorem eligendi similique corporis ex, illum cum voluptatum perspiciatis asperiores officiis vitae doloribus. Doloremque porro dolor quas quod dicta, adipisci placeat? Voluptate reiciendis, nesciunt quia alias sequi exercitationem vitae cumque deserunt impedit, hic error sapiente at minima quidem enim maxime sed deleniti eius incidunt? Odit commodi ex laudantium aliquid aliquam autem officia magni unde doloremque, beatae quasi inventore enim iusto itaque impedit, expedita natus mollitia optio temporibus libero dolorum incidunt? Fugit ut ratione saepe ullam minus eaque officiis animi quas quaerat cupiditate exercitationem provident, voluptatem consequatur tempora, dignissimos eos iste rem, natus accusamus perspiciatis ea. Qui nobis dolores aperiam, sed illum, enim sint ut nulla laudantium harum itaque quam nisi a laboriosam. Nulla temporibus deserunt sint, provident natus porro quibusdam sit nesciunt odit soluta, beatae magnam voluptatum nobis quos aspernatur quis dolor. Tempora provident explicabo quis commodi facilis eius illo animi pariatur consequuntur veritatis officiis numquam hic modi iure laudantium consequatur ut, culpa rerum neque quos quo inventore sed. Modi totam soluta quod in? Eligendi nam repellendus accusamus quasi maxime. Iste exercitationem eveniet veritatis veniam quia nihil sint officiis, nesciunt itaque distinctio culpa harum? Reiciendis, atque numquam minus delectus explicabo ut veniam, sint placeat, dolorum quae blanditiis eum! Perspiciatis rerum maxime voluptatem provident ex, vero quo tenetur earum! Pariatur, necessitatibus? Maiores perferendis doloribus sint in. Aspernatur consequuntur ut atque quas nulla officiis voluptatum ullam nisi ipsum quos perspiciatis velit excepturi rem dicta repudiandae accusamus quis reiciendis in, autem blanditiis praesentium molestiae labore incidunt est. Unde, similique?</textarea>
-            </li>
-            <!-- <li>
-                <div class="view-img">
-                    <img src="./yunjae.jpg" alt="">
-                </div>
-                <div class="view-content">content 공간</div>
-            </li>
-            <li>
-                <div class="view-img">
-                    <img src="./yunjae.jpg" alt="">
-                </div>
-                <div class="view-content">content 공간</div>
-            </li> -->
-            <li>
-                <div class="updel">
-                    <button class="update">수정</button>
-                    <button class="delete">삭제</button>
-                </div>
-            </li>
-        </ul>
+    </section>
 
-        
+    <script>
+        const $view = document.querySelector('#view');
+        const url = "http://localhost:8080/"
+        const getlist = async ()=>{
+            const res = await fetch(url+"post/api/"+sessionStorage.getItem('id'),{
+                headers: {
+                    "Content-Type":"application/json"
+                }
+            })
+            const json = await res.json();
+            console.log(json)
+            $view.innerHTML = `
+            <p class="title">${json.title}</p>
+            <ul class="views">
+                <li>
+                    <div class="view-img">
+                        <img src="${url}img/${json.titleImg}" alt="">
+                    </div>
+                    <div class="view-content">${json.content}</div>
+                </li>
+                <li>
+                    <div class="updel">
+                        <button class="update">수정</button>
+                        <button class="delete">삭제</button>
+                    </div>
+                </li>
+            </ul>
+            `
+        }
+        getlist();
+    </script>        
     </section>
 </body>
 </html>

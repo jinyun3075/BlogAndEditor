@@ -1,10 +1,11 @@
 const post = require('./Schema/postSchema');
 
-const createPost = (title, content, section) => {
+const createPost = (title, content, section,titleImg) => {
     const data = new post({
         title,
         content,
         section,
+        titleImg,
         pubDate : new Date(),
         modDate : new Date()
     })

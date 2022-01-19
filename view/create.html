@@ -1,41 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>create</title>
-    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-    <link rel="stylesheet" href="./style.css">
-    
+    <link rel="stylesheet" href="hehe.css">
+    <title></title>
 </head>
 <body>
-    <section id="view">
+    
+    <div id="container">
 
-        <input type="file">
-        <p class="title">제목</p><input type="text" class="title">
-        
-        <div id="editor"></div>
-        
-        <button type="button"class="create">만들기</button>
-        
-        
-    </section>
-        <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-        <script>
-            const Editor = toastui.Editor;
-        const editor = new Editor({
-            el: document.querySelector('#editor'),
-            height: '600px',
-            initialEditType: 'markdown',
-            previewStyle: 'vertical'
-        });
-        // editor.getHTML();
-        // editor.getMarkdown();
-        const file = document.querySelector('input')
-        file.onchange = (e)=> {
-            console.log(e.target.files[0].name)
+        <div class="sub">
+            <p id="category-title" class="sub_text">게시물 만들기</p>
+            <p class="sub_count"></p>
+        </div>
+
+        <form class="form">
+            <input class="form_input" type="text" placeholder="제목을 입력해주세요">
+        </form>
+
+        <section class="editor">
+            <p class="text">text</p>
+            <div class="inptxt" contenteditable></div>
+            <p class="viewer">viewer</p>
+            <div class="showmd">    
+            </div>
+        </section>
+        <button class="create">create</button>
+        <label for="form_btn" class="form_btn">+</label>
+        <input type="file" id="form_btn">
+    </div>
+
+    <script>
+        function parseMd(md){
+            //ul
+            md = md.replace(/^\s*\n\*/gm, '<ul>\n*');
+            md = md.replace(/^(\*.+)\s*\n([^\*])/gm, '$1\n</ul>\n\n$2');
+            md = md.replace(/^\*(.+)/gm, '<li>$1</li>');
+            
+            //ol
+            md = md.replace(/^\s*\n\d\./gm, '<ol>\n1.');
+            md = md.replace(/^(\d\..+)\s*\n([^\d\.])/gm, '$1\n</ol>\n\n$2');
+            md = md.replace(/^\d\.(.+)/gm, '<li>$1</li>');
+            
+            //blockquote
+            md = md.replace(/^\>(.+)/gm, '<blockquote>$1</blockquote>');
+            
+            //h
+            md = md.replace(/[\#]{6}(.+)/g, '<h6>$1</h6>');
+            md = md.replace(/[\#]{5}(.+)/g, '<h5>$1</h5>');
+            md = md.replace(/[\#]{4}(.+)/g, '<h4>$1</h4>');
+            md = md.replace(/[\#]{3}(.+)/g, '<h3>$1</h3>');
+            md = md.replace(/[\#]{2}(.+)/g, '<h2>$1</h2>');
+            md = md.replace(/[\#]{1}(.+)/g, '<h1>$1</h1>');
+            
+            //alt h
+            md = md.replace(/^(.+)\n\=+/gm, '<h1>$1</h1>');
+            md = md.replace(/^(.+)\n\-+/gm, '<h2>$1</h2>');
+            
+            //images
+            md = md.replace(/\!\[([^\]]+)\]\(([^\)]+)\)/g, '<img src="$2" alt="$1" />');
+            
+            //links
+            md = md.replace(/[\[]{1}([^\]]+)[\]]{1}[\(]{1}([^\)\"]+)(\"(.+)\")?[\)]{1}/g, '<a href="$2" title="$4">$1</a>');
+            
+            //font styles
+            md = md.replace(/[\*\_]{2}([^\*\_]+)[\*\_]{2}/g, '<b>$1</b>');
+            md = md.replace(/[\*\_]{1}([^\*\_]+)[\*\_]{1}/g, '<i>$1</i>');
+            md = md.replace(/[\~]{2}([^\~]+)[\~]{2}/g, '<del>$1</del>');
+            
+            //pre
+            md = md.replace(/^\s*\n\`\`\`(([^\s]+))?/gm, '<pre class="$2">');
+            md = md.replace(/^\`\`\`\s*\n/gm, '</pre>\n\n');
+            
+            //code
+            md = md.replace(/[\`]{1}([^\`]+)[\`]{1}/g, '<code>$1</code>');
+            
+            //p
+            md = md.replace(/^\s*(\n)?(.+)/gm, function(m){
+                return  /\<(\/)?(h\d|ul|ol|li|blockquote|pre|img)/.test(m) ? m : '<p>'+m+'</p>';
+            });
+            
+            //strip p from pre
+            md = md.replace(/(\<pre.+\>)\s*\n\<p\>(.+)\<\/p\>/gm, '$1$2');
+            
+            return md;
         }
+        const $txt = document.querySelector('.inptxt');
+        const $show = document.querySelector('.showmd');
+        $txt.addEventListener('keyup',()=> {
+            console.log(parseMd($txt.textContent))
+            $show.innerHTML = parseMd($txt.textContent);
+        })
+
     </script>
 </body>
 </html>

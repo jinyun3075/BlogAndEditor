@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/', cont.getPost);
 router.get('/:id', cont.getOnePost);
 
-router.post('/:name', cont.createPost);
+router.post('/', cont.createPost);
 
 router.put('/:id', cont.updatePost);
 

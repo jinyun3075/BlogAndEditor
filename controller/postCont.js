@@ -1,14 +1,13 @@
 const postModel = require('../model/postService');
 
 const createPost = async (req, res) => {
-    const { title, content, section} =req.body;
-    console.log(title,content,section)
+    const { title, content, section,titleImg} =req.body;
     if(!title || !content) {
         res.status(406).json({"error" : "전부 입력해주세요"});
         return;
     }
     try {
-        const data = await postModel.createPost(title, content, section);
+        const data = await postModel.createPost(title, content, section,titleImg);
         res.status(201).json(data);
     } catch(error) {
         res.status(error.status).json({ "message" : "post fail" })
@@ -16,9 +15,6 @@ const createPost = async (req, res) => {
 }
 
 const getPost = async (req, res) => {
-    const image = req.files[0].path;
-    console.log(req.files);
-    console.log(image);
     try{
         const data = await postModel.getPost();
         res.status(200).json(data);
