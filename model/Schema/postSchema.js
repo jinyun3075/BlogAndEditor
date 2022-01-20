@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 const schema = mongoose.Schema({
     title: {
         type: String,
-        maxLength: 100,
-        require: true
+        maxLength: 20,
+        require: "제목은 필수 입니다."
     },
     titleImg: {
         type: String,
@@ -11,7 +11,12 @@ const schema = mongoose.Schema({
     },
     content: {
         type: String,
-        maxLength:2000,
+        maxLength:5000,
+        require: false
+    },
+    viewer: {
+        type: String,
+        maxLength:5000,
         require: false
     },
     section: {

@@ -14,7 +14,7 @@ const imageOne = (req, res) => {
         const img = req.file;
         res.status(200).json(img);
     }else {
-        res.status(error.status).json({ "message" : "upload fail" });
+        res.status(500).json({ "message" : "upload fail" });
     }
 }
 const imageMany = async (req, res) => {
@@ -22,7 +22,7 @@ const imageMany = async (req, res) => {
         const img = req.files;
         res.status(200).json(img);
     }else {
-        res.status(error.status).json({ "message" : "uploads fail" });
+        res.status(500).json({ "message" : "uploads fail" });
     }
 }
 module.exports = {imageOne, imageMany, getImage};

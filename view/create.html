@@ -12,15 +12,13 @@
 <body>
     
     <div id="container">
-
         <div class="sub">
             <p id="category-title" class="sub_text">게시물 만들기</p>
             <p class="sub_count"></p>
         </div>
-
-        <form class="form">
+        <div class='form'>    
             <input class="form_input" type="text" placeholder="제목을 입력해주세요.">
-        </form>
+        </div>
 
         <div class="form-check form-switch" id="mark">
             <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
@@ -33,12 +31,13 @@
             <div class="showmd">    
             </div>
         </section>
-        <button class="create">create</button>
-        <label for="form_btn" class="form_btn">+</label>
+        <button type="button" class="create">create</button>
+        <label for="form_btn" class="form_btn">img</label>
         <input type="file" id="form_btn">
     </div>
 
     <script>
+        
         function parseMd(md){
             //ul
             md = md.replace(/^\s*\n\*/gm, '<ul>\n*');
@@ -94,19 +93,66 @@
             return md;
         }
         const $check = document.querySelector('#flexSwitchCheckChecked');
-        let check = false;
+        const $title = document.querySelector('.form_input');
         const $txt = document.querySelector('.inptxt');
         const $show = document.querySelector('.showmd');
+        const $imgfile =document.querySelector('#form_btn');
+        const $create = document.querySelector('.create');
+        const url = "http://localhost:8080/";
+        let check = false;
+
         $check.onclick = (e) => {
             check = e.target.checked;
         }
         $txt.addEventListener('keyup',()=> {
-            console.log(mdchange());
+            mdchange();
+            console.log($show.innerHTML)
         })
         const mdchange = ()=> {
             $show.innerHTML = (check?parseMd($txt.textContent):$txt.textContent);
         }
+        let image=[];
+        $imgfile.addEventListener('change',function(e){
+            const f1 = e.target.files[0];
+            image.push(f1);
+        })
+        async function imgupload(img) {
+            const formdata = new FormData();
+            formdata.append('image',img[0]);
+            const res = await fetch(url+'img/upload',{
+                method : "post",
+                body: formdata
+            })
+            const json = await res.json();
+            return json["filename"];
+        }
         
+        $create.onclick = async ()=>{
+                const titleImg = await imgupload(image);
+                const title = $title.value;
+                const content = $txt.textContent;
+                const viewer = $show.innerHTML;
+                const res = await fetch(url+"post/api",{
+                    method:'post',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        title,
+                        content,
+                        viewer,
+                        section:"",
+                        titleImg
+                    })
+                }).then((data)=>{
+                    return data.json();
+                }).then((data)=>{
+                    console.log(data);
+                    // location.href = 'index.html';
+                }).catch((error)=>{
+                    console.log(error);
+                })
+        }
     </script>
 </body>
 </html>
