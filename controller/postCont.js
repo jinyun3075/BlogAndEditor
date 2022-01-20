@@ -29,22 +29,22 @@ const getOnePost = async (req, res) => {
         const data = await postModel.getOnePost(id);
         res.status(200).json(data);
     } catch(error) {
-        res.status(error).json({ "message" : "get fail" });
+        res.status(404).json({ "message" : "get fail" });
     }
 }
 
-const updatePost = async (req, res) => {
+const updatePost = async (req, res, next) => {
     const { id } = req.params;
-    const { title, content , section} = req.body;
+    const { title, content,viewer,section,titleImg} =req.body;
     if(!title || !content) {
         res.status(404).json({"message" : "전부 입력해주세요"});
-        return;
+        return next();
     }
     try {
-        const data = await postModel.updatePost(id, title, content, section);
-        res.status(201).json(data);
+        const data = await postModel.updatePost(id, title, titleImg, content, viewer ,section);
+        res.status(200).json(data);
     } catch (error) {
-        res.status(error.status).json({ "message" : "update fail" })
+        res.status(404).json({ "message" : "update fail" })
     }
 }
 
@@ -54,7 +54,7 @@ const deletePost = async (req, res) => {
         await postModel.deletePost(id);
         res.status(200).json({ "message" : "delete success" });
     } catch (error) {
-        res.status(error.status).json({ "message" : "not find"});
+        res.status(404).json({ "message" : "not find"});
     }
 }
 module.exports = {createPost, getPost, updatePost, deletePost, getOnePost}

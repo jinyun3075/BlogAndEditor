@@ -20,12 +20,14 @@ const getOnePost = (id) => {
     return post.findByIdAndUpdate(id,{$inc :{view:+1}},{new:true});
 }
 
-const updatePost = (id, title, content, section) => {
+const updatePost = (id, title, titleImg, content, viewer, section) => {
     return post.findByIdAndUpdate(
         id,
         {
             title,
+            titleImg,
             content,
+            viewer,
             section,
             modDate : new Date()
         },
