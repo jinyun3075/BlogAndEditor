@@ -69,6 +69,17 @@
   background-color: #fff;
 }
 
+.main {
+  cursor: pointer;
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  border: none;
+  background-color: #fff;
+  font-size: 30px;
+  font-weight: 500;
+}
+
 .create {
   cursor: pointer;
   position: absolute;

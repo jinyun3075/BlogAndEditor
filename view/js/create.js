@@ -58,6 +58,10 @@ const $txt = document.querySelector('.inptxt');
 const $show = document.querySelector('.showmd');
 const $imgfile =document.querySelector('#form_btn');
 const $create = document.querySelector('.create');
+const $back =  document.querySelector('.main');
+$back.onclick = ()=> {
+    location.href = "index.html"
+}
 const url = "http://localhost:8080/";
 let check = false;
 
@@ -106,9 +110,10 @@ $create.onclick = async ()=>{
         }).then((data)=>{
             return data.json();
         }).then((data)=>{
-            alert.log(data);
+            alert("생성되었습니다.");
             location.href = 'index.html';
         }).catch((error)=>{
-            alert.log(error);
+            alert(error.message);
+            location.href = 'index.html';
         })
 }

@@ -144,7 +144,7 @@ main{
 .view-content{
     flex-basis:65%;
     margin-left:2em;
-    text-align: center;
+    padding: 1rem;
     font-size: 2rem;
     border:15px solid grey;
     border-radius: 15px;

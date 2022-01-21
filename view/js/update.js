@@ -81,6 +81,7 @@ const getlist = async ()=>{
         <div class="showmd">${json.viewer}</div>
     </section>
     <button type="button" class="create">update</button>
+    <button type="button" class="main">뒤로가기</button>
     <label for="form_btn" class="form_btn">img</label>
     <input type="file" id="form_btn">
     `
@@ -90,6 +91,10 @@ const $txt = document.querySelector('.inptxt');
 const $show = document.querySelector('.showmd');
 const $imgfile =document.querySelector('#form_btn');
 const $create = document.querySelector('.create');
+const $back =  document.querySelector('.main');
+$back.onclick = ()=> {
+    location.href = "index.html"
+}
 let check = false;
 
 $check.onclick = (e) => {

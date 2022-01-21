@@ -35,7 +35,7 @@ const $view = document.querySelector('#view');
                 }).then((data)=>{
                     return data.json();
                 }).then((data)=>{
-                    alert(data);
+                    alert(data.message);
                     location.href='index.html'
                 }).catch((error)=>{
                     alert(error);
