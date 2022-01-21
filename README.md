@@ -21,6 +21,7 @@
 - /img/uploads (post) : 이미지 1~4개 업로드
 
 ## 구조
+![image](https://user-images.githubusercontent.com/64072136/150458702-97c9d5e1-1d2f-4247-a3a3-34b15e887ff6.png)
 
 ## 기능
 - 게시판 CRUD
