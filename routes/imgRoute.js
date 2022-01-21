@@ -7,7 +7,7 @@ const imgCont = require('../controller/imgCont');
 const router = express.Router();
 
 const storage = multer.diskStorage({
-    destination:(req, file, cd) => {
+    destination: (req, file, cd) => {
         // try{
         //     fs.accessSync('upload/'+req.params.name);
         // } catch(error) {
@@ -15,27 +15,25 @@ const storage = multer.diskStorage({
         // }
         cd(null, 'upload/');
     },
-    filename:(req, file, cd)=>{
+    filename: (req, file, cd) => {
         const name = file.originalname;
         cd(null, name);
     }
 })
 const upload = multer ({
     storage: storage,
-    fileFilter : (req, file, callback )=>{
+    fileFilter: (req, file, callback ) => {
         let ext = path.extname(file.originalname);
         if(ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
             return callback(res.end('이미지만 넣어라!!'), null);
         }
-        callback(null,true);
+        callback(null, true);
     },
-    limit : { fileSize:5*1024*1024 },
+    limit: { fileSize: 5*1024*1024 },
 });
 
 router.get('/:img', imgCont.getImage);
-
-router.post('/upload',upload.single('image'), imgCont.imageOne);
-
-router.post('/uploads',upload.array('images',4), imgCont.imageMany);
+router.post('/upload', upload.single('image'), imgCont.imageOne);
+router.post('/uploads', upload.array('images',4), imgCont.imageMany);
 
 module.exports = router;

@@ -11,12 +11,12 @@ const schema = mongoose.Schema({
     },
     content: {
         type: String,
-        maxLength:5000,
-        require: false
+        maxLength: 5000,
+        require: "내용을 입력해주세요!!"
     },
     viewer: {
         type: String,
-        maxLength:5000,
+        maxLength: 5000,
         require: false
     },
     section: {
@@ -26,7 +26,7 @@ const schema = mongoose.Schema({
     },
     view:{
         type: Number,
-        default:0
+        default: 0
     },
     pubDate: {
         type: Date,
@@ -38,4 +38,4 @@ const schema = mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model("post",schema);
+module.exports = mongoose.model("post", schema);

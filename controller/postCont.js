@@ -1,14 +1,9 @@
 const postModel = require('../model/postService');
 
-const createPost = async (req, res,next) => {
-    const { title, content,viewer,section,titleImg} =req.body;
-    console.log(req.body)
-    if(!title || !content) {
-        res.status(406).json({"error" : "전부 입력해주세요"});
-        return next();
-    }
+const createPost = async (req, res) => {
+    const { title, content, viewer, section, titleImg} = req.body;
     try {
-        const data = await postModel.createPost(title, content,viewer, section,titleImg);
+        const data = await postModel.createPost(title, content, viewer, section, titleImg);
         res.status(200).json(data);
     } catch(error) {
         res.status(error).json({ "message" : "post fail" })
@@ -23,28 +18,25 @@ const getPost = async (req, res) => {
         res.status(error).json({ "message" : "get fail" });
     }
 }
+
 const getOnePost = async (req, res) => {
     const { id } = req.params;
     try {
         const data = await postModel.getOnePost(id);
         res.status(200).json(data);
     } catch(error) {
-        res.status(404).json({ "message" : "get fail" });
+        res.status(error).json({ "message" : "get fail" });
     }
 }
 
-const updatePost = async (req, res, next) => {
+const updatePost = async (req, res) => {
     const { id } = req.params;
-    const { title, content,viewer,section,titleImg} =req.body;
-    if(!title || !content) {
-        res.status(404).json({"message" : "전부 입력해주세요"});
-        return next();
-    }
+    const { title, content, viewer, section, titleImg} = req.body;
     try {
         const data = await postModel.updatePost(id, title, titleImg, content, viewer ,section);
         res.status(200).json(data);
     } catch (error) {
-        res.status(404).json({ "message" : "update fail" })
+        res.status(error).json({ "message" : "update fail" })
     }
 }
 
