@@ -3,6 +3,10 @@ const postModel = require('../model/postService');
 const createPost = async (req, res) => {
     const { title, content, viewer, section, titleImg} = req.body;
     try {
+        if(titleImg.length==0){
+            titleImg.push("");
+            titleImg.push("default.png");
+        }
         const data = await postModel.createPost(title, content, viewer, section, titleImg);
         res.status(200).json(data);
     } catch(error) {

@@ -87,36 +87,45 @@ async function imgupload(img) {
         body: formdata
     })
     const json = await res.json();
+    alert(1)
+    console.log(json);
     const imgname = []
     imgname.push(json["destination"].split('/')[1]);
+    alert(2)
     imgname.push(json["filename"]);
+    alert(3)
+    alert(imgname)
     return imgname;
 }
 
-$create.onclick = async ()=>{
-        const titleImg = await imgupload(image);
-        const title = $title.value;
-        const content = $txt.textContent;
-        const viewer = $show.innerHTML;
-        const res = await fetch(url+"post/api",{
-            method:'post',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                title,
-                content,
-                viewer,
-                section:"",
-                titleImg
-            })
-        }).then((data)=>{
-            return data.json();
-        }).then((data)=>{
-            alert("생성되었습니다.");
-            location.href = 'index.html';
-        }).catch((error)=>{
-            alert(error.message);
-            location.href = 'index.html';
+$create.onclick = async (e)=>{
+    const titleImg=[];
+    if(image.length>0){
+        titleImg = imgupload(image);
+        alert(titleImg["filename"])
+    }
+    const title = $title.value;
+    const content = $txt.textContent;
+    const viewer = $show.innerHTML;
+    const res = await fetch(url+"post/api",{
+        method:'post',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            title,
+            content,
+            viewer,
+            section:"",
+            titleImg
         })
+    }).then((data)=>{
+        return data.json();
+    }).then((data)=>{
+        alert("생성되었습니다.");
+        location.href = 'index.html';
+    }).catch((error)=>{
+        alert(error.message);
+        location.href = 'index.html';
+    })
 }

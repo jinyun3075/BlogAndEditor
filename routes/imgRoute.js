@@ -7,12 +7,17 @@ const bcrypt = require('bcrypt')
 const router = express.Router();
 const storage = multer.diskStorage({
     destination: (req, file, cd) => {
-        const date =bcrypt.hashSync(new Date()+"",2);
+        console.log()
+        // const date =new Date().date;
+        const d =new Date();
+        let date =bcrypt.hashSync(d.getDate+d.getMonth+d.getTime+"",2);
+        date = date.replaceAll("/","");
         try{
             fs.accessSync('upload/'+date);
         } catch(error) {
             fs.mkdirSync('upload/'+date);
         }
+        // fs.mkdirSync('upload/'+date);
         cd(null, 'upload/'+date);
     },
     filename: (req, file, cd) => {

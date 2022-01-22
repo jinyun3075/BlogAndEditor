@@ -7,7 +7,7 @@ const schema = mongoose.Schema({
     },
     titleImg: {
         type: Array,
-        default: "default.png"
+        default: ["","default.png"]
     },
     content: {
         type: String,
