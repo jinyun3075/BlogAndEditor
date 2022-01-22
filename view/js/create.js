@@ -87,7 +87,10 @@ async function imgupload(img) {
         body: formdata
     })
     const json = await res.json();
-    return json["filename"];
+    const imgname = []
+    imgname.push(json["destination"].split('/')[1]);
+    imgname.push(json["filename"]);
+    return imgname;
 }
 
 $create.onclick = async ()=>{

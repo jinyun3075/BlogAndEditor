@@ -1,8 +1,9 @@
 const fs = require('fs');
 const getImage = (req, res) => {
     const { img } =req.params;
-    const type = img.split('.')[1];
-    fs.readFile('upload/'+img,(err,data)=> {
+    const dataimg = img.split(',');
+    const type = dataimg[1].split('.')[1];
+    fs.readFile('upload/'+dataimg[0]+"/"+dataimg[1],(err,data)=> {
         // res.writeHead(200, {"Context-Type": "image/jpg"});
         // res.write(data);
         // res.end();

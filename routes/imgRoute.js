@@ -3,17 +3,17 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const imgCont = require('../controller/imgCont');
-
+const bcrypt = require('bcrypt')
 const router = express.Router();
-
 const storage = multer.diskStorage({
     destination: (req, file, cd) => {
-        // try{
-        //     fs.accessSync('upload/'+req.params.name);
-        // } catch(error) {
-        //     fs.mkdirSync('upload/'+req.params.name);
-        // }
-        cd(null, 'upload/');
+        const date =bcrypt.hashSync(new Date()+"",2);
+        try{
+            fs.accessSync('upload/'+date);
+        } catch(error) {
+            fs.mkdirSync('upload/'+date);
+        }
+        cd(null, 'upload/'+date);
     },
     filename: (req, file, cd) => {
         const name = file.originalname;

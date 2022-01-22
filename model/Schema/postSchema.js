@@ -6,7 +6,7 @@ const schema = mongoose.Schema({
         require: "제목은 필수 입니다.",
     },
     titleImg: {
-        type: String,
+        type: Array,
         default: "default.png"
     },
     content: {
