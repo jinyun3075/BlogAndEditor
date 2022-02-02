@@ -79,6 +79,7 @@ $imgfile.addEventListener('change',function(e){
     const f1 = e.target.files[0];
     image.push(f1);
 })
+let titleImg=[];
 async function imgupload(img) {
     const formdata = new FormData();
     formdata.append('image',img[0]);
@@ -87,27 +88,19 @@ async function imgupload(img) {
         body: formdata
     })
     const json = await res.json();
-    alert(1)
-    console.log(json);
-    const imgname = []
-    imgname.push(json["destination"].split('/')[1]);
-    alert(2)
-    imgname.push(json["filename"]);
-    alert(3)
-    alert(imgname)
-    return imgname;
+    titleImg.push(json["destination"].split('/')[1]);
+    titleImg.push(json["filename"]);
+    console.log(titleImg)
 }
 
-$create.onclick = async (e)=>{
-    const titleImg=[];
-    if(image.length>0){
-        titleImg = imgupload(image);
-        alert(titleImg["filename"])
-    }
+$create.onclick = async ()=>{
     const title = $title.value;
     const content = $txt.textContent;
     const viewer = $show.innerHTML;
-    const res = await fetch(url+"post/api",{
+    if(image.length>0){
+        await imgupload(image);
+    }
+    await fetch(url+"post/api",{
         method:'post',
         headers: {
             "Content-Type": "application/json"
@@ -117,15 +110,11 @@ $create.onclick = async (e)=>{
             content,
             viewer,
             section:"",
-            titleImg
+            titleImg :titleImg
         })
-    }).then((data)=>{
-        return data.json();
-    }).then((data)=>{
-        alert("생성되었습니다.");
-        location.href = 'index.html';
-    }).catch((error)=>{
-        alert(error.message);
-        location.href = 'index.html';
+    }).then(data=>{
+        location.href = "index.html";
+    }).catch(error=>{
+        location.href = "index.html";
     })
 }

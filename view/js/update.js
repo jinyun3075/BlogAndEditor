@@ -111,6 +111,7 @@ $imgfile.addEventListener('change',function(e){
     const f1 = e.target.files[0];
     image.push(f1);
 })
+let titleImg=[];
 async function imgupload(img) {
     const formdata = new FormData();
     formdata.append('image',img[0]);
@@ -119,15 +120,17 @@ async function imgupload(img) {
         body: formdata
     })
     const json = await res.json();
-    return json["filename"];
+    titleImg.push(json["destination"].split('/')[1]);
+    titleImg.push(json["filename"]);
 }
-
 $create.onclick = async ()=>{
-        const titleImg = await imgupload(image);
+        if(image.length>0){
+            await imgupload(image);
+        }
         const title = $title.value;
         const content = $txt.textContent;
         const viewer = $show.innerHTML;
-        const res = await fetch(url+"post/api/"+sessionStorage.getItem('id'),{
+        await fetch(url+"post/api/"+sessionStorage.getItem('id'),{
             method:'put',
             headers: {
                 "Content-Type": "application/json"
@@ -140,12 +143,9 @@ $create.onclick = async ()=>{
                 titleImg
             })
         }).then((data)=>{
-            return data.json();
-        }).then((data)=>{
-            alert(data)
             location.href = 'index.html';
         }).catch((error)=>{
-            alert(error)
+            location.href = 'index.html';
         })
 }
 }
