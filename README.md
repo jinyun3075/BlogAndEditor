@@ -1,4 +1,4 @@
-# 블로그
+# 블로그(Editor)
 ![image](https://user-images.githubusercontent.com/64072136/152099226-7e8fe76f-3668-45dd-bcaf-377cf2cdd4e3.png)
 ![image](https://user-images.githubusercontent.com/64072136/152096570-2a659369-1904-4bb4-96a0-b6a6d7db272b.png)
 ![image](https://user-images.githubusercontent.com/64072136/152099370-a8a8b741-9fc8-4c89-9747-99d53e7c8685.png)
