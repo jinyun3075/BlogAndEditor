@@ -1,5 +1,8 @@
 # 블로그
+![image](https://user-images.githubusercontent.com/64072136/152099226-7e8fe76f-3668-45dd-bcaf-377cf2cdd4e3.png)
 ![image](https://user-images.githubusercontent.com/64072136/152096570-2a659369-1904-4bb4-96a0-b6a6d7db272b.png)
+![image](https://user-images.githubusercontent.com/64072136/152099370-a8a8b741-9fc8-4c89-9747-99d53e7c8685.png)
+
 
 ## 사용환경
 - vscode: 1.63.2
@@ -31,6 +34,6 @@
 - 이미지
 
 ## 에러
-- 게시글 생성및 수정 시 이미지 api 통신 후 페이지 자동 새로고침 - (미해결)
+- 게시글 생성및 수정 시 이미지 api 통신 후 페이지 자동 새로고침 - (임시해결)
 - 이미지 업로드시 폴더 발견 못하는 문제 - fs를 이용해서 폴더가 없을경우 자동생성(해결)
 - toast editor 실행 error - npm으로 다운받고 cdn 까지 사용하면 중복으로인해? 실행이 안된다. (toast 사용안함)
